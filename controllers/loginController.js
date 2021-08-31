@@ -1,4 +1,5 @@
 
+//For Register Page
 const registerView = (req, res) => {
     let title = 'Register';
 
@@ -6,7 +7,7 @@ const registerView = (req, res) => {
         title:title
     } );
 }
-
+// For View 
 const loginView = (req, res) => {
     let title = 'Login';
 
@@ -14,8 +15,6 @@ const loginView = (req, res) => {
         title:title
     } );
 }
-
-
 
 module.exports =  {
     registerView,

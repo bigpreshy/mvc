@@ -68,8 +68,32 @@ const loginView = (req, res) => {
   });
 };
 
+//Logging in Function
+
+const loginUser =(req, res) => {
+  const { email, password } = req.body;
+
+  //Required
+  if (!email || !password) {
+    console.log( "Please fill in all the fields" );
+    res.render("login", {
+      email,
+      password,
+    });
+  }
+  else {
+
+    passport.authenticate("local", {
+      successRedirect: "/dashboard",
+      failureRedirect: "/login",
+      failureFlash: true,
+ })(req, res, next);
+  }
+}
+
 module.exports = {
   registerView,
   loginView,
   registerUser,
+  loginUser,
 };

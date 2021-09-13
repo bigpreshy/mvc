@@ -2,7 +2,9 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const dotenv = require("dotenv");
+const passport = require('passport');
 dotenv.config();
+require("./auth/passport")(passport);
 
 // Mongo DB conncetion
 const database = process.env.MONGOLAB_URI;
@@ -16,8 +18,10 @@ app.set('view engine', 'ejs');
 //BodyParsing
 app.use(express.urlencoded({extended: false}));
 
+app.use(passport.initialize());
 //Routes
 app.use('/', require('./routes/login'));
+
 
 const PORT = process.env.PORT || 4111;
 

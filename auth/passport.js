@@ -7,7 +7,7 @@ LocalStrategy = require('passport-local').Strategy;
 
 //Load model
 
-const Customer = require("../models/User");
+const User = require("../models/User");
 
 
 
@@ -46,7 +46,7 @@ module.exports = (passport) => {
       });
       
       passport.deserializeUser((id, done)=>{
-        Customer.findById(id, (error, user) =>{
+        User.findById(id, (error, user) =>{
           done(error, user);
         });
       });

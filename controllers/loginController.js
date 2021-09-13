@@ -1,12 +1,12 @@
+const passport = require("passport");
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 
 //For Register Page
 const registerView = (req, res) => {
-  let title = "Register";
 
   res.render("register", {
-    title: title,
+    
   });
 };
 
@@ -61,35 +61,43 @@ const registerUser = (req, res) => {
 
 // For View
 const loginView = (req, res) => {
-  let title = "Login";
+  
 
   res.render("login", {
-    title: title,
+    
   });
 };
 
 //Logging in Function
 
-const loginUser =(req, res) => {
+const loginUser = (req, res) => {
   const { email, password } = req.body;
 
   //Required
   if (!email || !password) {
-    console.log( "Please fill in all the fields" );
+    console.log("Please fill in all the fields");
     res.render("login", {
       email,
       password,
     });
+  } else {
+    User.findOne({ password: !password }).then((user) => {
+      if (!user) {
+        console.log("wrong");
+        res.render("login", {
+          email,
+          password,
+        });
+      } else {
+        passport.authenticate("local", {
+          successRedirect: "/dashboard",
+          failureRedirect: "/login",
+          failureFlash: true,
+        })(req, res);
+      }
+    });
   }
-  else {
-
-    passport.authenticate("local", {
-      successRedirect: "/dashboard",
-      failureRedirect: "/login",
-      failureFlash: true,
- })(req, res, next);
-  }
-}
+};
 
 module.exports = {
   registerView,

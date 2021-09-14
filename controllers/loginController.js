@@ -4,10 +4,7 @@ const bcrypt = require("bcryptjs");
 
 //For Register Page
 const registerView = (req, res) => {
-
-  res.render("register", {
-    
-  });
+  res.render("register", {});
 };
 
 //Post Request for Register
@@ -61,11 +58,7 @@ const registerUser = (req, res) => {
 
 // For View
 const loginView = (req, res) => {
-  
-
-  res.render("login", {
-    
-  });
+  res.render("login", {});
 };
 
 //Logging in Function
@@ -81,21 +74,11 @@ const loginUser = (req, res) => {
       password,
     });
   } else {
-    User.findOne({ password: !password }).then((user) => {
-      if (!user) {
-        console.log("wrong");
-        res.render("login", {
-          email,
-          password,
-        });
-      } else {
-        passport.authenticate("local", {
-          successRedirect: "/dashboard",
-          failureRedirect: "/login",
-          failureFlash: true,
-        })(req, res);
-      }
-    });
+    passport.authenticate("local", {
+      successRedirect: "/dashboard",
+      failureRedirect: "/login",
+      failureFlash: true,
+    })(req, res);
   }
 };
 
